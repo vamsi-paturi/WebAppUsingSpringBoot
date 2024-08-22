@@ -1,5 +1,6 @@
 package com.learningspring.BuildingApp.FirstWebApp.Todo;
 
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -15,11 +16,11 @@ public class TodoService {
     private static int todosCount = 0;
 
     static {
-        todos.add(new Todo(++todosCount,  "in28minutes", "Get AWS Certified 1",
+        todos.add(new Todo(++todosCount,  "Vamsi", "Get AWS Certified 1",
                 LocalDate.now().plusYears(1), false));
-        todos.add(new Todo(++todosCount,"in28minutes", "Learn DevOps 1",
+        todos.add(new Todo(++todosCount,"Vamsi", "Learn DevOps 1",
                 LocalDate.now().plusYears(2), false));
-        todos.add(new Todo(++todosCount,"in28minutes", "Learn Full Stack Development 1",
+        todos.add(new Todo(++todosCount,"Vamsi", "Learn Full Stack Development 1",
                 LocalDate.now().plusYears(3), false));
     }
 
@@ -54,7 +55,7 @@ public class TodoService {
     }
 
 
-    public void updateTodo(Todo todo) {
+    public void updateTodo(@Valid Todo todo) {
         deleteByID(todo.getId());
         todos.add(todo);
     }
