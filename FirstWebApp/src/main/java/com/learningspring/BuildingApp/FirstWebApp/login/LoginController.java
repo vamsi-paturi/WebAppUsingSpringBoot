@@ -31,7 +31,7 @@ public class LoginController {
 //        logger.info("Printing at Info Level");
 //        logger.warn("Printing only warnings");
        // System.out.println("Request Param is " + name);
-        return "login";
+        return "welcome";
     }
 
     @RequestMapping(value = "login", method = RequestMethod.POST)
