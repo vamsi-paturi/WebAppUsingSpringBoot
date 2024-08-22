@@ -27,7 +27,8 @@ public class TodoService {
     public Object updateTodo;
 
     public List<Todo> findByUsername(String username) {
-        return todos;
+        Predicate<? super Todo> predicate = todo -> todo.getUsername().equalsIgnoreCase(username);
+        return todos.stream().filter(predicate).toList();
     }
 
     public void addTodo(String username, String desciption, LocalDate target, boolean done){

@@ -1,3 +1,8 @@
+
+
+// USED WELCOME CONTROLLER TO REPLACE THIS FUNCTIONALITY WITH SPRING SECURITY IMPLEMENTATION
+
+/*
 package com.learningspring.BuildingApp.FirstWebApp.login;
 
 import org.slf4j.Logger;
@@ -54,3 +59,4 @@ public class LoginController {
     }
 
 }
+*/
