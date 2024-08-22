@@ -1,3 +1,8 @@
+// Instead of this we are using Spring Security
+
+
+
+/*
 package com.learningspring.BuildingApp.FirstWebApp.login;
 
 import org.springframework.stereotype.Service;
@@ -11,3 +16,4 @@ public class AuthenticationService {
         return isValidUserName && isValidPassword;
     }
 }
+*/

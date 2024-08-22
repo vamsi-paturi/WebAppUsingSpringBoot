@@ -1,14 +1,20 @@
 package com.learningspring.BuildingApp.FirstWebApp.security;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.stereotype.Controller;
 
 import java.util.function.Function;
+
+import static org.springframework.security.config.Customizer.withDefaults;
 
 @Controller
 public class SpringSecurityConfiguration {
@@ -23,7 +29,7 @@ public class SpringSecurityConfiguration {
     public InMemoryUserDetailsManager createUserDetailsManager() {
 
         UserDetails userDetails1 = createNewUser("Vamsi", "dummy");
-        UserDetails userDetails2 = createNewUser("vasmipaturi", "dummydummy");
+        UserDetails userDetails2 = createNewUser("VamsiApp", "dummydummy");
 
         return new InMemoryUserDetailsManager(userDetails1, userDetails2);
     }
@@ -38,12 +44,34 @@ public class SpringSecurityConfiguration {
                 .password(password)
                 .roles("USER","ADMIN")
                 .build();
+
         return userDetails;
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    //All URLs are protected
+    //A login form is shown for unauthorized requests
+    //CSRF disable
+    //Frames
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
+        http.authorizeHttpRequests(
+                auth -> auth.anyRequest().authenticated());
+        http.formLogin(withDefaults());
+        http.csrf(AbstractHttpConfigurer::disable); // H2 cannot be handled if we dont disable this
+
+        // OR
+        // http.csrf(AbstractHttpConfigurer::disable);
+
+        http.headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable)); // Starting from SB 3.1.x
+
+        return http.build();
     }
 
 
